@@ -17,26 +17,32 @@ menu.forEach(function (item) {
   console.log("forEach:", item.name);
 });
 
-// Telling the page to display text visibly: names and prices of menu items
-const list = document.getElementById("menu-list");
-const baconLi = document.createElement("li");
-baconLi.textContent = menu[0].name + ": " + menu[0].price;
-list.appendChild(baconLi);
 
-const scrambledLi = document.createElement("li");
-scrambledLi.textContent = menu[1].name + ": " + menu[1].price;
-list.appendChild(scrambledLi);
-
-const sunnyLi = document.createElement("li");
-sunnyLi.textContent = menu[2].name + ": " + menu[2].price;
-list.appendChild(sunnyLi);
-
-const toastLi = document.createElement("li");
-toastLi.textContent = menu[3].name + ": " + menu[3].price;
-list.appendChild(toastLi);
-
-// Adding a total of all items.
+// Sentence for each item
 for (let i = 0; i < menu.length; i++) {
-    total.li
-};
+  console.log(menu[i].name + " is delicious no matter what time it is!");
+}
 
+
+
+// Telling the page to display text visibly: names and prices of menu items
+const menuText = document.querySelector("#menu-text");
+menuText.textContent = "";
+for (let i = 0; i < menu.length; i++) {
+  menuText.textContent = menuText.textContent + menu[i].name + ": $" +  menu[i].price + "\n";
+}
+
+
+// Adding a total number of items.
+let count = 0;
+for (let i = 0; i < menu.length; i++) {
+    count = count + 1;
+};
+console.log("Items:", count);
+
+// Adding price total of menu
+let total = 0
+for (let t = 0; t < menu.length; t++) {
+    total = total + menu[t].price
+};
+console.log("Total:", total);
