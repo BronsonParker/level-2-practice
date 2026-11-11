@@ -22,3 +22,25 @@ const card2 = document.createElement("div");
 card.className = "card p-3";
 card.textContent = menu[2].name;
 area.appendChild(card2);
+
+
+menu.forEach(function (bacon) {
+  const itemCard = document.createElement("div");
+  itemCard.className = "card p-3";
+  itemCard.textContent = item.name;
+  area.appendChild(itemCard);
+});
+
+menu.forEach(function (item) {
+  const itemCard = document.createElement("div");
+  itemCard.className = "card p-3";
+  itemCard.textContent = item.name;
+  area.appendChild(itemCard);
+});
+
+menu.forEach(function (item) {
+  const itemCard = document.createElement("div");
+  itemCard.className = "card p-3";
+  itemCard.textContent = item.name;
+  area.appendChild(itemCard);
+});
