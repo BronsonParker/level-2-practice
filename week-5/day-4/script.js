@@ -9,7 +9,7 @@ const recipeArea = document.getElementById("recipe");
 
 
 async function loadRecipe() {
-  const url = "https://dummyjson.com/recipes/" + input.value;
+  const url = `https://dummyjson.com/recipes/${input.value}`;
 
   recipeArea.textContent = "";   // clear the old recipe first
 
