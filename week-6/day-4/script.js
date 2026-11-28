@@ -32,7 +32,8 @@ const characterList = document.getElementById("character-list");
 //        ERROR:    wrap it all in try/catch. In the catch: console.log(error); and a friendly message.
 // Check: 2 summary cards (20, 15) and 20 character cards with pictures.
 
-const url = "https://rickandmortyapi.com/api/character";
+// I changed the page to 10 where Krombopulos Michael is, my favorite minor character.
+const url = "https://rickandmortyapi.com/api/character/?page=10";
 
 async function loadCharacters() {
   try {
@@ -120,6 +121,21 @@ function showSummaries(characters) {
   // Check: a card that says 12.
 
   addSummary("Average Episodes", Math.round(totalEpisodes / episodeCounts.length));
+
+  // Added a counter for Krombopulus Michael's species, Gromflomite. Unfortunately, he is only listed as an Alien. So I did that too, even though it's less specific.
+  const gromflomites = characters.filter(function (character) {
+    return character.species === "Gromflomite";
+  });
+  console.log("Gromflomites:", gromflomites);
+  addSummary("Gromflomites", gromflomites.length);
+
+  const aliens = characters.filter(function (character) {
+    return character.species === "Alien";
+  });
+  console.log("Aliens:", aliens);
+  addSummary("Aliens", aliens.length);
+
+
 }
 
 
