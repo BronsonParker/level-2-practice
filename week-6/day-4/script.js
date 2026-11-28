@@ -32,12 +32,32 @@ const characterList = document.getElementById("character-list");
 //        ERROR:    wrap it all in try/catch. In the catch: console.log(error); and a friendly message.
 // Check: 2 summary cards (20, 15) and 20 character cards with pictures.
 
-const url = "";
-
+const url = "https://rickandmortyapi.com/api/character";
 
 async function loadCharacters() {
-  // Step 1 goes here
+  try {
+  statusText.textContent = "Loading characters...";
+    const response = await fetch(url);
+    // If there is an error, this tells us what went wrong and throws a code for it.
+    if (!response.ok) {
+      statusText.textContent = `Something went wrong (status ${response.status}).`;
+      return;
+    }
 
+    // Tells the function to parse the info out into objects instead of leaving it as a JSON and clears the loading text.
+    const data = await response.json();
+    console.log(data);
+    statusText.textContent = "";
+
+    // Shows the data, sets cards.
+    showSummaries(data.results);
+    showCards(data.results);
+  
+  // Catches errors in the code. Use the Inspect tool and go to Console tab to see what's up.
+  } catch (error) {
+    console.log(error);
+    statusText.textContent = "Something went wrong. Check the console.";
+  }
 }
 
 loadCharacters();
@@ -61,6 +81,11 @@ function showSummaries(characters) {
   // Show how many with addSummary("Dead", dead.length).
   // Check: 6. That's the 6 gray cards.
 
+  const dead = characters.filter(function (character) {
+    return character.status === "Dead";
+  });
+  console.log("Dead:", dead);
+  addSummary("Dead", dead.length);
 
   // ---------- Step 3: map (CHANGE every one) ----------
   // EXAMPLE: turn 20 character objects into 20 names.
@@ -69,26 +94,32 @@ function showSummaries(characters) {
     return character.name;
   });
   console.log("Names:", names);
-
+  
   // YOUR TURN: how many episodes is each character in? (Step 4 adds these up.)
   // Copy the example below it, then change:
   //   names → episodeCounts,  character.name → character.episode.length,  "Names:" → "Episodes:"
   // Check: the console shows Episodes: and 20 numbers, starting 51, 51, 42, 42...
+
+  const episodeCounts = characters.map(function (character) {
+    return character.episode.length;
+  });
+  console.log("Episodes:", names);
 
 
   // ---------- Step 4: reduce (SQUISH into one) ----------
   // EXAMPLE: add up your episodeCounts from Step 3 (51 + 51 + 42 + ...).
   // total starts at 0 (the 0 at the end). Each time, return the new total.
   // It needs your Step 3, so it starts OFF. Turn it on: select the 4 lines below, press Ctrl+/ (Cmd+/ on a Mac).
-  // const totalEpisodes = episodeCounts.reduce(function (total, number) {
-  //   return total + number;
-  // }, 0);
-  // addSummary("Episodes, all added up", totalEpisodes);
+  const totalEpisodes = episodeCounts.reduce(function (total, number) {
+    return total + number;
+  }, 0);
+  addSummary("Episodes, all added up", totalEpisodes);
 
   // YOUR TURN: the AVERAGE episodes per character (total ÷ 20, rounded). Write this one line:
   //   addSummary("Average episodes", Math.round(totalEpisodes / episodeCounts.length));
   // Check: a card that says 12.
 
+  addSummary("Average Episodes", Math.round(totalEpisodes / episodeCounts.length));
 }
 
 

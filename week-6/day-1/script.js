@@ -16,16 +16,42 @@ const results = document.getElementById("results");
 
 async function searchCharacters() {
   // A template literal: backticks ` ` instead of quotes, and ${...} drops a value into the text.
-  const url = `https://rickandmortyapi.com/api/character/?name=${searchBox.value}`;
+  try{
+    const url = `https://rickandmortyapi.com/api/character/?name=${searchBox.value}`;
 
-  // ---------- Step 1 goes here: clear old results + LOADING ----------
+    // ---------- Step 1 goes here: clear old results + LOADING ----------
+    results.textContent = "";
+    statusText.textContent = "Searching...";
+  
+    const response = await fetch(url);
 
-  const response = await fetch(url);
+    // ---------- Step 3 goes here: EMPTY (it must come BEFORE Step 2's check) ----------
+    if (response.status === 404) {
+      statusText.textContent = `No characters match "${searchBox.value}". Try "rick".`;
+      return;
+    }
 
-  // ---------- Step 3 goes here: EMPTY (it must come BEFORE Step 2's check) ----------
+    if (!response.ok) {
+      statusText.textContent = `Something went wrong (status ${response.status}). Try again.`;
+      return;
+    }
+
+    const data = await response.json();
+    console.log(data);
+    statusText.textContent = "";
+
+    data.results.forEach(function (character) {
+      const item = document.createElement("li");
+      item.className = "list-group-item";
+      item.textContent = `${character.name} (${character.species}, ${character.status})`;
+      results.appendChild(item);
+    });
 
   // ---------- Step 2 goes here: ERROR check ----------
-
+  } catch (error) {
+    console.log(error);
+    statusText.textContent = "Can't reach the Rick and Morty server. Check your internet and try again.";
+  }
   const data = await response.json();
   console.log(data);
 
@@ -39,6 +65,7 @@ async function searchCharacters() {
     results.appendChild(item);
   });
 }
+
 
 searchButton.addEventListener("click", searchCharacters);
 
