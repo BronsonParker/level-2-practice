@@ -4,23 +4,24 @@ Write 1–2 sentences for each, in your own words. **No keys in this file**: it 
 
 ## API key
 
-What is it for?
+API keys are a string of characters that tells an API who is making the request, like an ID card and a set of keys in one.
 
 
 ## OAuth
 
-What is it for? (Think: "Sign in with Google" on another website.)
+OAuth is what allows an application or program to do something on your behalf.
 
 
 ## JWT
 
-What is it for? (Think: the wristband you get after showing your ID at the door.)
+A JWT is a onetime, time-sensitive code that gets sent back after a request that allows entry or use from a server or database.
 
 
 ## Where did my key live today?
 
-Which file, and why doesn't it get pushed?
+It's in my config.js, which is listed in my .gitignore file. The .gitignore tells VSCode to AVOID pushing all listed files in it to GitHub.
 
 
 ## Could I put this page on GitHub Pages? Why not?
 
+Yes, because the only secret is in my config.js, which is in my .gitignore list.
