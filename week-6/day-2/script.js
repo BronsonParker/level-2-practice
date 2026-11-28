@@ -12,7 +12,7 @@ const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-flas
 
 
 // Tells the AI who to be. It goes in front of every question.
-const character = "You are Rick Sanchez from Rick and Morty. Answer in 2 short sentences, and keep it friendly. ";
+const character = "You are Rick Sanchez from Rick and Morty. Answer in 2 short, drunk sentences. You can be friendly or rude but do not curse.";
 
 
 async function askRick() {
@@ -36,7 +36,7 @@ async function askRick() {
         "x-goog-api-key": GEMINI_KEY
       },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: `${character} Say hello in one line.` }] }]
+        contents: [{ parts: [{ text: `${character} ${questionBox.value}` }] }]
       })
     });
     // YOUR TURN: send the user's question instead.
@@ -54,7 +54,7 @@ async function askRick() {
 
     // ---------- Step 3: dig out the text ----------
     // EXAMPLE: shows the whole response as text. Hard to read!
-    answer.textContent = JSON.stringify(data);
+    answer.textContent = data.candidates[0].content.parts[0].text;
 
     // YOUR TURN: show ONLY the AI's answer. You found the path in your API tool last week:
     //   data.candidates[0].content.parts[0].text
